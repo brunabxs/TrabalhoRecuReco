@@ -8,7 +8,7 @@ description = raw_input('Descricao:\n')
 analysis = DescriptionAnalyser(description)
 analysis.calculate_terms_frequency()
 
-# download de imagens
+# download de imagens individuais
 for term in analysis.terms():
     ImageSearch.search(term)
 

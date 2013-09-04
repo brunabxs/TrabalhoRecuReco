@@ -9,6 +9,8 @@ class ImageSearch:
     
     BASE_URL = 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0&userip=177.98.68.247&q=' 
 
+    INDEX = 0
+    
     @staticmethod
     def google_search(keyword):
         '''
@@ -29,7 +31,7 @@ class ImageSearch:
         '''
         try:
             image_name, image_extention = os.path.splitext(image_url)
-            image_name = 'image'
+            image_name = 'image' + ImageSearch.get_image_index()
             image_file = open(image_name + image_extention, "wb")
             
             image = urllib2.urlopen(image_url)
@@ -52,3 +54,12 @@ class ImageSearch:
             
         image_url = results_data[0]['unescapedUrl']
         ImageSearch.download_image(image_url)
+        
+    @staticmethod
+    def get_image_index():
+        '''
+        Retorna um indice e atualiza
+        @return srt
+        '''
+        ImageSearch.INDEX += 1
+        return str(ImageSearch.INDEX)
