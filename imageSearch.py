@@ -39,10 +39,10 @@ class ImageSearch:
     
     @staticmethod
     def search(keyword):
-		'''
-		Faz a busca de uma imagem utilizando a API do Google e salva em disco
-		@param str
-		'''
+        '''
+        Faz a busca de uma imagem utilizando a API do Google e salva em disco
+        @param str
+        '''
         results = ImageSearch.google_search(keyword)
         results_data = results['responseData']['results']
         results_count = int(results['responseData']['cursor']['estimatedResultCount'])
