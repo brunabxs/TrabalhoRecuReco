@@ -1,0 +1,1 @@
+<html><head></head><body>$keywords$colors$images</body></html>
