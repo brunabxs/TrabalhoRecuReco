@@ -8,7 +8,7 @@ class TestOutputGeneratorMethods(unittest.TestCase):
     #    self.assertEqual(data, '<html><head></head><body></body></html>')
 
     def test_init(self):
-        og = OutputGenerator('text',['um', 'dois', 'tres'], ['#ffffff'], ['image.jpg'], template='test/template-test-init.tpl', output='test/output-test-init.html')
+        og = OutputGenerator('text',['um', 'dois', 'tres'], ['#ffffff'], ['image.jpg'], template='test/template-test-init.tpl', output='test/test-output/output-test-init.html')
         
         self.assertEqual(og.description, 'text')
         self.assertEqual(og.keywords, ['um', 'dois', 'tres'])
@@ -17,7 +17,7 @@ class TestOutputGeneratorMethods(unittest.TestCase):
         self.assertEqual(isinstance(og.output, Template), True)
         
     def test_save_output(self):
-        og = OutputGenerator('text', ['um', 'dois', 'tres'], ['#ffffff'], ['image.jpg'], template='test/template-test-save-output.tpl', output='test/output-test-save-output.html')
+        og = OutputGenerator('text', ['um', 'dois', 'tres'], ['#ffffff'], ['image.jpg'], template='test/template-test-save-output.tpl', output='test/test-output/output-test-save-output.html')
         og.save_output()
         self.assertEqual(og.output, '<html><head></head><body><li>um</li><li>dois</li><li>tres</li><li style="background-color: #ffffff"></li><li><img src="image.jpg" /></li></body></html>')
         
