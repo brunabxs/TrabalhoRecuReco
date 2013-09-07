@@ -6,10 +6,20 @@ class Point:
     
     @staticmethod
     def convert_to_hexa(color):
+        '''
+        Converte uma lista de inteiros numa cor em hexa
+        @param list possui tres elementos que correspondem aos canais R, G, B
+        @return str corno formato '#______'
+        '''
         rgb = map(int, color)
         return '#%s' % ''.join(('%02x' % channel for channel in rgb))
 
     def __init__(self, color, count):
+        '''
+        Construtor
+        @param list possui tres elementos que correspondem aos canais R, G, B
+        @param int total de pixels com a cor
+        '''
         self.color = color
         self.count = count
         
@@ -43,6 +53,10 @@ class Point:
         
 class Cluster:
     def __init__(self, start_point):
+        '''
+        Construtor
+        @param Point ponto inicial do cluster
+        '''
         self.points = [start_point]
         self.new_points = []
         self.center = start_point
@@ -92,6 +106,12 @@ class Cluster:
 
 class ColorExtractor:
     def __init__(self, image_filename, total_clusters=3, min_difference=0.001):
+        '''
+        Construtor
+        @param str nome do arquivo da imagem
+        @param int (opcional) total de clusters
+        @param float (opcional) erro minimo para se encerrar a procura de clusters
+        '''
         self.image = Image.open(image_filename)
         self.image.thumbnail((200, 200))
         self.total_clusters = total_clusters
@@ -141,13 +161,10 @@ class ColorExtractor:
         return clusters
         
     def extract_colors(self):
+        '''
+        Extrai os clusters de cores da imagem
+        @return list<Cluster> clusters encontrados
+        '''
         points = self.__get_points()
         clusters = self.__kmeans(points, self.total_clusters, self.min_difference)
         return clusters
-
-if __name__ == '__main__':
-    image_filename = raw_input('Imagem: ')
-    
-    colorExtractor = ColorExtractor(image_filename, 5)
-    clusters = colorExtractor.extract_colors()
-    print str(clusters)

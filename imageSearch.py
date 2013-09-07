@@ -15,8 +15,8 @@ class ImageSearch:
     def google_search(keyword):
         '''
         Utiliza a API do Google para encontrar a url de uma imagem
-        @param str
-        @return dict
+        @param str palavra-chave
+        @return dict resultado da consulta no google (ver referencias)
         '''
         request = urllib2.Request(ImageSearch.BASE_URL + keyword, None, {'Referer': ''})
         response = urllib2.urlopen(request)
@@ -24,26 +24,29 @@ class ImageSearch:
         return results
 
     @staticmethod
-    def download_image(image_url):
+    def download_image(image_url, image_prepend_name='image'):
         '''
         Faz o download da imagem de uma dada url
-        @param str
+        @param str url da imagem
+        @return str nome do arquivo salvo
         '''
         try:
             image_name, image_extention = os.path.splitext(image_url)
-            image_name = 'image' + ImageSearch.get_image_index()
+            image_name = image_prepend_name + ImageSearch.get_image_index()
             image_file = open(image_name + image_extention, "wb")
             
             image = urllib2.urlopen(image_url)
             image_file.write(image.read())
+            return image_file.name
         except:
             raise ValueError('Download image error')
     
     @staticmethod
-    def search(keyword):
+    def search(keyword, total_images=1):
         '''
         Faz a busca de uma imagem utilizando a API do Google e salva em disco
-        @param str
+        @param str palavra-chave
+        @return list<str> nomes dos arquivos das imagens
         '''
         results = ImageSearch.google_search(keyword)
         results_data = results['responseData']['results']
@@ -51,15 +54,20 @@ class ImageSearch:
 
         if results_count == 0:
             raise ValueError('No image found')
+
+        filenames = []
+        for i in xrange(total_images):
+            image_url = results_data[i]['unescapedUrl']
+            image_name = ImageSearch.download_image(image_url, keyword+'-image')
+            filenames.append(image_name)
             
-        image_url = results_data[0]['unescapedUrl']
-        ImageSearch.download_image(image_url)
+        return filenames
         
     @staticmethod
     def get_image_index():
         '''
         Retorna um indice e atualiza
-        @return srt
+        @return srt indice da imagem
         '''
         ImageSearch.INDEX += 1
         return str(ImageSearch.INDEX)
