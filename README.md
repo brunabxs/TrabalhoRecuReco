@@ -11,3 +11,7 @@ Construir um sistema de recomendação de cores baseado numa descrição ofereci
   - [Google Custom Search API](https://developers.google.com/custom-search/v1/overview)
   - [Stemming](https://pypi.python.org/pypi/stemming/1.0)
   - [Simple JSON](https://pypi.python.org/pypi/simplejson/)
+  
+###Fontes de Consulta
+- https://developers.google.com/image-search/v1/jsondevguide#json_snippets_python
+- http://www.craigquiter.com/post/23892979248/download-images-from-google-image-search-python
