@@ -33,6 +33,11 @@
                 height: 30px;
             }
             
+            ul.cards li.palette-base {
+                border-size: 3px;
+                border-color: #333;
+            }
+            
             ul.cards.large li img {
                 width: 100px;
                 height: auto;
@@ -74,6 +79,11 @@
         <ul id="resultado" class="cards small">
             $colors
         </ul>
+        
+        <h3>Paletas de cores</h3>
+        <div id="resultado-paletas">
+            $palettes
+        </div>
         
         <h3>Imagens</h3>
         <ul id="imagens" class="cards large">
