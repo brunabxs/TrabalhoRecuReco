@@ -1,3 +1,4 @@
+#https://developers.google.com/image-search/v1/jsondevguide
 #https://developers.google.com/image-search/v1/jsondevguide#json_snippets_python
 #http://www.craigquiter.com/post/23892979248/download-images-from-google-image-search-python
 
@@ -7,7 +8,7 @@ import os
 
 class ImageSearch:
     
-    BASE_URL = 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0&userip=177.98.68.247&q=' 
+    BASE_URL = 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0&userip=177.98.68.247&as_filetype=jpg&imgsz=small|medium&q=' 
 
     INDEX = 0
     
@@ -49,6 +50,10 @@ class ImageSearch:
         @return list<str> nomes dos arquivos das imagens
         '''
         results = ImageSearch.google_search(keyword)
+        
+        if results == None or results['responseData'] == None:
+            raise ValueError('No result could be found')
+        
         results_data = results['responseData']['results']
         results_count = int(results['responseData']['cursor']['estimatedResultCount'])
 
