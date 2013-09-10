@@ -216,3 +216,5 @@ pip-log.txt
 
 #Custom
 test/test-output/
+images/
+*.html
