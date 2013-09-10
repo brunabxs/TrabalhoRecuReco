@@ -95,10 +95,11 @@ class DescriptionAnalyser:
         # ocorrencia do termo na descricao
         for term in self.terms():
             self.__terms_frequency[term] += 1
-        
+                    
         # frequencia do termo na descricao
         total_terms = len(self.terms())
-        for term in self.terms():
+        distinct_terms = set(self.terms())
+        for term in distinct_terms:
             self.__terms_frequency[term] /= total_terms
             
     def terms_frequency(self, term=None):
@@ -113,3 +114,13 @@ class DescriptionAnalyser:
             return self.__terms_frequency[term]
         else:
             return 0.0
+            
+    def most_frequent_terms(self, total=2):
+        '''
+        Termos mais frequentes
+        @param int (optional)
+        @return list<str>
+        '''
+        terms = self.terms_frequency().keys()
+        terms.sort(key=self.terms_frequency, reverse=True)
+        return terms[:total]

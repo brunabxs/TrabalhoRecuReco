@@ -62,6 +62,12 @@ class TestDescriptionAnalyserMethods(unittest.TestCase):
         self.assertEqual(type(description_analyser.terms_frequency('term')), float)
         self.assertAlmostEqual(description_analyser.terms_frequency('novel'), 1.0/9.0, delta=0.000001)
         self.assertAlmostEqual(description_analyser.terms_frequency('harmony'), 0.0, delta=0.000001)
+        
+    def test_most_frequent_terms(self):
+        description_analyser = DescriptionAnalyser('A novel technique technique.')
+        description_analyser.calculate_terms_frequency()
+        self.assertEqual(description_analyser.most_frequent_terms(1), ['techniqu'])
+        self.assertEqual(description_analyser.most_frequent_terms(2), ['techniqu', 'novel'])
 
 if __name__ == '__main__':
     unittest.main()
