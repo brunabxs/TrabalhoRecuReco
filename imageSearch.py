@@ -18,13 +18,13 @@ class ImageSearch:
         @param str palavra-chave
         @return dict resultado da consulta no google (ver referencias)
         '''
-        request = urllib2.Request(ImageSearch.BASE_URL + keyword, None, {'Referer': ''})
+        request = urllib2.Request(ImageSearch.BASE_URL + keyword.replace(' ', '%20'), None, {'Referer': ''})
         response = urllib2.urlopen(request)
         results = simplejson.load(response)
         return results
 
     @staticmethod
-    def download_image(image_url, image_prepend_name='image'):
+    def download_image(image_url, image_download_dir, image_prepend_name='image'):
         '''
         Faz o download da imagem de uma dada url
         @param str url da imagem
@@ -32,7 +32,7 @@ class ImageSearch:
         '''
         try:
             image_name, image_extention = os.path.splitext(image_url)
-            image_name = image_prepend_name + ImageSearch.get_image_index()
+            image_name = image_download_dir + image_prepend_name + ImageSearch.get_image_index()
             image_file = open(image_name + image_extention, "wb")
             
             image = urllib2.urlopen(image_url)
@@ -42,7 +42,7 @@ class ImageSearch:
             raise ValueError('Download image error')
     
     @staticmethod
-    def search(keyword, total_images=1):
+    def search(keyword, image_download_dir, total_images=1):
         '''
         Faz a busca de uma imagem utilizando a API do Google e salva em disco
         @param str palavra-chave
@@ -58,7 +58,7 @@ class ImageSearch:
         filenames = []
         for i in xrange(total_images):
             image_url = results_data[i]['unescapedUrl']
-            image_name = ImageSearch.download_image(image_url, keyword+'-image')
+            image_name = ImageSearch.download_image(image_url, image_download_dir, keyword.replace(' ', '-')+'-image')
             filenames.append(image_name)
             
         return filenames
